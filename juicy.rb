@@ -46,15 +46,16 @@ def jcy
 		business_id = business["id"]
 		business_name = business["name"]
 		business_image = business["image_url"]
+		business_url = business["mobile_url"]
 
 		path = "/v2/business/#{business_id}"
 		body = access_token.get(path).body
 		address = JSON.parse(body)
 		business_coordinates = get_address_coordinates(address["location"]["address"].first, address["location"]["city"])
-		 file.write("name: #{business_name}, coordinates: #{business_coordinates}, image_url: #{business_image}\n")
+		 file.write("name: #{business_name}, coordinates: #{business_coordinates}, business_url: #{business_url}, image_url: #{business_image}\n")
 		# puts "name: #{business_name}, coordinates: #{business_coordinates}, image_url: #{business_image}"
 		# puts "got here"
-		# binding.pry
+		 binding.pry
 	end
 	file.close
 	# p body
