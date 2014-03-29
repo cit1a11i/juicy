@@ -5,7 +5,7 @@ require 'json'
 require 'geocoder'
 
 def get_coordinates(street, city)
-	puts "got here2"
+    puts "got here2"
     puts "inside get_coordinates #{street}" 
     puts "inside get_coordinates #{city}"  
 
