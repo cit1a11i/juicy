@@ -27,6 +27,8 @@
 
 obj = JSON.parse(restaurant_data)
 console.log(obj)
+var markersArray = [];
+var infoWindowsArray = [];
 
 function initialize() {
   var myLatlng = new google.maps.LatLng(37.483378, -122.149553);
@@ -35,11 +37,7 @@ function initialize() {
     center: myLatlng
   };
 
-
-
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-
 
   var image = {
     url: 'images/hamburger.png',
@@ -59,6 +57,7 @@ function initialize() {
   for (var i = 0; i < locations.length; i++) {
     var beach = locations[i];
     var myLatLng = new google.maps.LatLng(beach[1], beach[2]);
+
     var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
@@ -67,10 +66,15 @@ function initialize() {
         title: beach[0],
         zIndex: beach[3]
     });
+    markersArray.push(marker);
+    infoWindowsArray.push(infowindow);
+  }
+  for (var m = 0; m < markersArray.length; m++) {
+    var dish = locations[m];
     var contentString = '<div id="content">'+
       '<div id="siteNotice">'+
       '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">' + beach[0] +'</h1>'+
+      '<h1 id="firstHeading" class="firstHeading">' + locations[m] +'</h1>'+
       '<div id="bodyContent">'+
       '<p>Find it at: <a href="http://yelp.com">'+
       'http://yelp.com</a> '+
@@ -80,8 +84,9 @@ function initialize() {
     var infowindow = new google.maps.InfoWindow({
       content: contentString
     });
+    var marker = markersArray[m];
     google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(map,marker);
+      infowindow.open(map,this);
     });
   }
 }
