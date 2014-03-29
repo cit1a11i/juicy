@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Finding the juicy!</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+
+var locations = [
+  ['Mango chicken', 37.483378, -122.146553, 4],
+  ['Lasagna', 37.485378, -122.154653, 5],
+  ['Pork buns', 37.487378, -122.132753, 3],
+  ['Pizza', 37.489378, -122.150853, 2],
+  ['Hamburgers', 37.491378, -122.129953, 1]
+];
+
+function initialize() {
+  var myLatlng = new google.maps.LatLng(37.483378, -122.149553);
+  var mapOptions = {
+    zoom: 14,
+    center: myLatlng
+  };
+
+
+
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">Delicious Dish</h1>'+
+      '<div id="bodyContent">'+
+      '<p><b>Delicious Dish</b>' +
+      'is super yummy :) '+
+      '</p>'+
+      '<p>Find it at: <a href="http://yelp.com">'+
+      'http://yelp.com</a> '+
+      '</p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindow = new google.maps.InfoWindow({
+      content: contentString
+  });
+
+  var image = {
+    url: 'images/hamburger.png',
+    // This marker is 20 pixels wide by 32 pixels tall.
+    size: new google.maps.Size(72, 72),
+    // The origin for this image is 0,0.
+    origin: new google.maps.Point(0,0),
+    // The anchor for this image is the base of the flagpole at 0,32.
+    anchor: new google.maps.Point(0, 0)
+  };
+
+  var shape = {
+      coord: [1, 1, 1, 20, 18, 20, 18 , 1],
+      type: 'poly'
+  };
+
+  for (var i = 0; i < locations.length; i++) {
+    var beach = locations[i];
+    var myLatLng = new google.maps.LatLng(beach[1], beach[2]);
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        icon: image,
+        //shape: shape,
+        title: beach[0],
+        zIndex: beach[3]
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+    });
+  }
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>
