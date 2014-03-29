@@ -42,6 +42,7 @@ def jcy
 	# Get information on a list restaurants based on the location set above
 	body = access_token.get(path).body
 	h = JSON.parse(body)
+	business_array = []
 	h["businesses"].each do | business |
 		business_id = business["id"]
 		business_name = business["name"]
@@ -52,11 +53,13 @@ def jcy
 		body = access_token.get(path).body
 		address = JSON.parse(body)
 		business_coordinates = get_address_coordinates(address["location"]["address"].first, address["location"]["city"])
-		 file.write("name: #{business_name}, coordinates: #{business_coordinates}, business_url: #{business_url}, image_url: #{business_image}\n")
+		#file.write("{name: #{business_name}, coordinates: #{business_coordinates}, business_url: #{business_url}, image_url: #{business_image}},")
+		business_array << "{name: #{business_name}, coordinates: #{business_coordinates}, business_url: #{business_url}, image_url: #{business_image}}"
 		# puts "name: #{business_name}, coordinates: #{business_coordinates}, image_url: #{business_image}"
 		# puts "got here"
-		 binding.pry
+		 # binding.pry
 	end
+	file.write(business_array.join(","))
 	file.close
 	# p body
 end
