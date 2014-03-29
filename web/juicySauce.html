@@ -17,14 +17,16 @@
 
 //{name: Back A Yard Caribbean American Grill, coordinates: {"lat"=>37.472767, "lng"=>-122.1550525}, business_url: http://m.yelp.com/biz/back-a-yard-caribbean-american-grill-menlo-park, image_url: http://s3-media1.ak.yelpcdn.com/bphoto/WKBscEZoF92Yx87pwZjdmw/ms.jpg}
 
-var locations = [
-  ['Mango chicken', 37.483378, -122.146553, 4],
-  ['Lasagna', 37.485378, -122.154653, 5],
-  ['Pork buns', 37.487378, -122.132753, 3],
-  ['Pizza', 37.489378, -122.150853, 2],
-  ['Hamburgers', 37.491378, -122.129953, 1]
-];
+// var locations = [
+//   ['Mango chicken', 37.483378, -122.146553, 4],
+//   ['Lasagna', 37.485378, -122.154653, 5],
+//   ['Pork buns', 37.487378, -122.132753, 3],
+//   ['Pizza', 37.489378, -122.150853, 2],
+//   ['Hamburgers', 37.491378, -122.129953, 1]
+// ];
 
+obj = JSON.parse(restaurant_data)
+console.log(obj)
 
 function initialize() {
   var myLatlng = new google.maps.LatLng(37.483378, -122.149553);
