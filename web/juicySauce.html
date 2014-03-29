@@ -22,6 +22,7 @@ var locations = [
   ['Hamburgers', 37.491378, -122.129953, 1]
 ];
 
+
 function initialize() {
   var myLatlng = new google.maps.LatLng(37.483378, -122.149553);
   var mapOptions = {
@@ -33,23 +34,7 @@ function initialize() {
 
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-  var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">Delicious Dish</h1>'+
-      '<div id="bodyContent">'+
-      '<p><b>Delicious Dish</b>' +
-      'is super yummy :) '+
-      '</p>'+
-      '<p>Find it at: <a href="http://yelp.com">'+
-      'http://yelp.com</a> '+
-      '</p>'+
-      '</div>'+
-      '</div>';
 
-  var infowindow = new google.maps.InfoWindow({
-      content: contentString
-  });
 
   var image = {
     url: 'images/hamburger.png',
@@ -76,6 +61,19 @@ function initialize() {
         //shape: shape,
         title: beach[0],
         zIndex: beach[3]
+    });
+    var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">' + beach[0] +'</h1>'+
+      '<div id="bodyContent">'+
+      '<p>Find it at: <a href="http://yelp.com">'+
+      'http://yelp.com</a> '+
+      '</p>'+
+      '</div>'+
+      '</div>';
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
     });
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.open(map,marker);
