@@ -11,11 +11,12 @@ def get_address_coordinates(street, city)
     # puts "inside get_coordinates #{city}"
 
     coordinate_results = Geocoder.search("#{street}, #{city}")
-    return_result = coordinate_results[0].data["geometry"]["location"]
+
     # puts "the results are #{coordinate_results}"
-    # coordinate_results_lat = coordinate_results[0].data["geometry"]["location"]["lat"]
-    # coordinate_results_lng = coordinate_results[0].data["geometry"]["location"]["lat"]
+    coordinate_results_lat = coordinate_results[0].data["geometry"]["location"]["lat"]
+    coordinate_results_lng = coordinate_results[0].data["geometry"]["location"]["lng"]
     # puts "final coordinates are #{coordinate_results_lat}, #{coordinate_results_lng}"
+    return_result = "\"#{coordinate_results_lat}, #{coordinate_results_lng}\""
     #binding.pry
 end
 
@@ -54,12 +55,14 @@ def jcy
 		address = JSON.parse(body)
 		business_coordinates = get_address_coordinates(address["location"]["address"].first, address["location"]["city"])
 		#file.write("{name: #{business_name}, coordinates: #{business_coordinates}, business_url: #{business_url}, image_url: #{business_image}},")
-		business_array << "{name: #{business_name}, coordinates: #{business_coordinates}, business_url: #{business_url}, image_url: #{business_image}}"
+		business_array << "{\"name\": \"#{business_name}\", \"coordinates\": #{business_coordinates}, \"business_url\": \"#{business_url}\", \"image_url\": \"#{business_image}\"}"
 		# puts "name: #{business_name}, coordinates: #{business_coordinates}, image_url: #{business_image}"
 		# puts "got here"
 		 # binding.pry
 	end
+	file.write("[")
 	file.write(business_array.join(","))
+	file.write("]")
 	file.close
 	# p body
 end
