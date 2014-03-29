@@ -16,7 +16,8 @@ def get_address_coordinates(street, city)
     coordinate_results_lat = coordinate_results[0].data["geometry"]["location"]["lat"]
     coordinate_results_lng = coordinate_results[0].data["geometry"]["location"]["lng"]
     # puts "final coordinates are #{coordinate_results_lat}, #{coordinate_results_lng}"
-    return_result = "\"#{coordinate_results_lat}, #{coordinate_results_lng}\""
+    # return_result = "\"#{coordinate_results_lat}, #{coordinate_results_lng}\""
+    return coordinate_results_lat, coordinate_results_lng
     #binding.pry
 end
 
@@ -53,9 +54,9 @@ def jcy
 		path = "/v2/business/#{business_id}"
 		body = access_token.get(path).body
 		address = JSON.parse(body)
-		business_coordinates = get_address_coordinates(address["location"]["address"].first, address["location"]["city"])
+		business_coordinates_lat,  business_coordinates_lng = get_address_coordinates(address["location"]["address"].first, address["location"]["city"])
 		#file.write("{name: #{business_name}, coordinates: #{business_coordinates}, business_url: #{business_url}, image_url: #{business_image}},")
-		business_array << "{\"name\": \"#{business_name}\", \"coordinates\": #{business_coordinates}, \"business_url\": \"#{business_url}\", \"image_url\": \"#{business_image}\"}"
+		business_array << "{\"name\": \"#{business_name}\", \"lat\": \"#{business_coordinates_lat}\", \"lng\": \"#{business_coordinates_lng}\", \"business_url\": \"#{business_url}\", \"image_url\": \"#{business_image}\"}"
 		# puts "name: #{business_name}, coordinates: #{business_coordinates}, image_url: #{business_image}"
 		# puts "got here"
 		 # binding.pry
