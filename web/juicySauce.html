@@ -63,7 +63,6 @@ function initialize() {
         position: myLatLng,
         map: map,
         icon: restaurant["image_url"],
-        //shape: shape,
         title: restaurant["name"],
         zIndex: i
     });
@@ -73,7 +72,6 @@ function initialize() {
 
   for (var m = 0; m < markersArray.length; m++) {
     var dish = restaurant_data[m];
-    //console.log(restaurant_data[m]["name"])
     var contentString = '<div id="content">'+
       '<div id="siteNotice">'+
       '</div>'+
@@ -88,17 +86,11 @@ function initialize() {
       content: contentString
     });
     var marker = markersArray[m];
-    // google.maps.event.addListener(marker, 'click', function() {
-    //   console.log(dish["name"])
-    //   infowindow.setContent(dish["name"])
-    //   infowindow.open(map,this);
-    // });
   }
 
   for (var m = 0; m < markersArray.length; m++) {
     var dish = restaurant_data[m];
     google.maps.event.addListener(markersArray[m], 'click', function(dishObj) { return function() {
-        console.log(dishObj)
         infowindow.setContent('<b>'+dishObj["name"]+'</b><br>'+ dishObj["dish"])
         infowindow.open(map,this);
     }; }(dish));
