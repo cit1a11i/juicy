@@ -96,11 +96,10 @@ function initialize() {
   }
 
   for (var m = 0; m < markersArray.length; m++) {
-    console.log(restaurant_data[m]["name"])
     var dish = restaurant_data[m];
     google.maps.event.addListener(markersArray[m], 'click', function(dishObj) { return function() {
-        //console.log(dish["name"])
-        infowindow.setContent(dishObj["name"])
+        console.log(dishObj)
+        infowindow.setContent('<b>'+dishObj["name"]+'</b><br>'+ dishObj["dish"])
         infowindow.open(map,this);
     }; }(dish));
   }
